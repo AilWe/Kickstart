@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+void sortbook(const vector<int> &worth, vector<int> &result);
+int main(){
+    int n;
+    cin >> n;
+    for(int i = 0; i< n; ++i){
+        int nOfBooks;
+        cin >> nOfBooks;
+        vector<int> result(nOfBooks);
+        vector<int> worth;
+        int bw = 0;
+        for(int j = 0; j< nOfBooks; ++j) {
+            cin >> bw;
+            worth.push_back(bw);
+        }
+        sortbook(worth,result);
+        cout<<"Case #"<<i+1<<": ";
+        for(int k = 0; k < result.size(); ++k){
+            cout<< result[k] << " ";
+        }
+        cout<<endl;
+    }
+}
+void sortbook(const vector<int> &worth, vector<int> &result){
+    vector<int> index1 = {};//sorted
+    vector<int> index2 = {};//sorted
+    vector <int> worth1 ={};
+    vector<int> worth2 = {};
+    for(int i = 0; i< worth.size(); ++i){
+        //cout<< worth[i];
+        cout<< i  << "\t"<< worth[i]%2 << endl;
+        //cout<< worth[i]<<endl;
+        if(worth[i]%2  != 0) {
+            index1.push_back(i);
+            worth1.push_back(worth[i]);
+            //cout<< i<<endl;
+            //cout<< worth[i]<<endl;
+        }
+        else{
+            index2.push_back(i);
+            worth2.push_back(worth[i]);
+        }
+    }
+    sort(worth1.begin(), worth1.end());
+    sort(worth2.rbegin(), worth2.rend());
+    result = vector<int> (worth.size());
+    //cout << worth.size();
+    for(int i = 0; i< index1.size(); ++i){
+        result[index1[i]] = worth1[i];
+    }
+    for(int i = 0; i< index2.size(); ++i){
+        result[index2[i]] = worth2[i];
+    }
+}
